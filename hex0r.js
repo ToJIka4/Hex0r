@@ -11,6 +11,7 @@ function markup_hex0rwindow(div) {
     var base64 = $(div).data('base64').toString() == "true";
     var showLineNums = $(div).data('show-line-nums').toString() == "true";
     var rawData = div.text();
+    var offset = parseInt($(div).data('offset')) || 0;
 
     if (trim == true) {
         rawData = remove_whitespace(rawData);
@@ -30,7 +31,8 @@ function markup_hex0rwindow(div) {
     div.text("");
     div.append("<table></table>");
 
-    var offset = 0;
+    var skip = offset % step;
+    offset -= skip;
 
     function applyHighlights(index) {
         for (var idx = 0; idx < highlights.length; idx++) {
@@ -59,8 +61,12 @@ function markup_hex0rwindow(div) {
         $("table", div).append("<caption>" + caption + "</caption>");
 
     while (rawData.length > 0) {
-        lineData = rawData.slice(0, step);
-        rawData = rawData.slice(step);
+        lineData = rawData.slice(0, step - skip);
+        rawData = rawData.slice(step - skip);
+		
+		if(skip > 0){
+			lineData = (" ").repeat(skip) + lineData;
+		}
 
         $("table", div).addClass("hex0rwindow_table");
         $("table", div).append("<tr></tr>").addClass("hex0rwindow");
@@ -74,9 +80,13 @@ function markup_hex0rwindow(div) {
         for (var idxData = 0; idxData < lineData.length; idxData += wordSize) {
             var num = "";
 
-            for (var idxWs = 0; idxWs < wordSize; idxWs++) {
-                num += dec2_to_hex(lineData.charCodeAt(idxData + idxWs));
-            }
+            if(idxData < skip){
+				num = "&nbsp;&nbsp;"
+			} else {
+			    for (var idxWs = 0; idxWs < wordSize; idxWs++) {
+                    num += dec2_to_hex(lineData.charCodeAt(idxData + idxWs));
+                }
+			}
             if (idxData == rowBreak - 1) {
                 $("table tr:last", div).append("<td>" + num + "&nbsp;&nbsp;&nbsp</td>");
 
@@ -93,7 +103,14 @@ function markup_hex0rwindow(div) {
         var text = "";
 
         for (var i = 0; i < lineData.length; i++) {
-            var cc = lineData.charCodeAt(i);
+            var cc;
+			
+			if(i < skip){
+				text = text + "&nbsp;";
+				continue;
+			} else {
+				cc = lineData.charCodeAt(i);
+			}
 
             if ((cc >= 32) && (cc <= 126)) {
                 text = text + lineData.charAt(i);
@@ -110,6 +127,8 @@ function markup_hex0rwindow(div) {
 
         $("table tr:last", div).append("<td>" + text + "</td>");
         $("table tr td:last", div).addClass("hex0rwindow_visual");
+		
+		skip = 0;
     }
 }
 
