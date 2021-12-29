@@ -30,6 +30,7 @@ Example
 4:20:#F4FA58:This is an interesting part
 And here is a list of two highlights:
 4:20:#F4FA58:This is an interesting part,36:56:#54FAF8:This is another interesting part 
+*  **offset** The start address of data. Affects the start offset and shifts first line
 
 # Usage
 
