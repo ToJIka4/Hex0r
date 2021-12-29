@@ -180,9 +180,3 @@ function base64_decode(encoded) {
 
     return decoded;
 }
-
-$(document).ready(function () {
-    $("div.hex0rwindow").each(function (index) {
-        markup_hex0rwindow($(this), index);
-    });
-});

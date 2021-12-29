@@ -1,8 +1,16 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>Hex0r Examples</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
     <script src="hex0r.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("div.hex0rwindow").each(function (index) {
+                markup_hex0rwindow($(this), index);
+            });
+        });
+    </script>
     <link rel="stylesheet" type="text/css" href="hex0r.css" />
 </head>
 <body>
@@ -31,7 +39,8 @@
     <br />
 <div class="hex0rwindow" data-row-width="16" data-word-size="1" data-row-break="8"
     data-trim="true" data-base64="true" data-caption="Hex0r Example - base 64 file, offset"
-    data-highlights="" data-show-line-nums="true" title="" data-offset="1357">
+    data-highlights="1357:1358:#F4FA58:JPEG Start Of Image"
+	data-show-line-nums="true" title="" data-offset="1357">
     /9j/4AAQSkZJRgABAQEASABIAAD/4RzmRXhpZgAATU0AKgAAAAgADAEPAAIAAAAJ AAAAngEQAAIAAAAQAAAAqAESAAMAAAABAAEAAAEaAAUAAAABAAAAuAEbAAUAAAAB
     AAAAwAEoAAMAAAABAAIAAAExAAIAAAAvAAAAyAEyAAIAAAAUAAAA+AITAAMAAAAB AAIAAIKYAAIAAAAFAAABDIdpAAQAAAABAAABEsSlAAcAAAAcAAAEkAAABKxGVUpJ
     RklMTQAARmluZVBpeCBGNDU1ICAgAAAAAEgAAAABAAAASAAAAA==
